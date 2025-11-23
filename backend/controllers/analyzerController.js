@@ -1,4 +1,3 @@
-
 // // backend/controllers/analyzerController.js
 const pdfParse = require("pdf-parse-fixed");
 const fs = require("fs");
