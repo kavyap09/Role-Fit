@@ -1,21 +1,27 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+require("dotenv").config();
+
 const analyzerRoutes = require("./routes/analyzerRoutes");
-const authRoutes = require("./routes/authRoutes"); // ⬅ new
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-// 🔹 1) Connect MongoDB
+// MongoDB Connection
 mongoose
-  .connect("mongodb://127.0.0.1:27017/skillmatch") // or your Atlas URL
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// 🔹 2) Routes
-app.use("/api/auth", authRoutes);   // signup, login
-app.use("/api", analyzerRoutes);    // analyzer (we’ll protect it later)
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api", analyzerRoutes);
 
-app.listen(5000, () => console.log("Server running on 5000"));
+// PORT
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
