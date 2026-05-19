@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 import RoadmapModal from "../components/RoadmapModal";  // ⭐ MODAL IMPORT
 import { getToken } from "../utils/auth";
 import roadmaps from "../utils/roadmaps.js";
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 export default function Analyzer() {
@@ -57,7 +57,7 @@ export default function Analyzer() {
     formData.append("jobText", jobText);
 
     try {
-      const res = await fetch("http://localhost:5000/api/analyze-pdf", {
+      const res = await fetch(`${API_URL}/api/analyze-pdf`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${getToken() || ""}`,
